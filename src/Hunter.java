@@ -39,6 +39,10 @@ public class Hunter {
         }
     }
 
+    public void testMode(){
+        kit = new String[] {"water", "rope", "machete", "horse", "boat"};
+    }
+
     /**
      * Buys an item from a shop.
      *
