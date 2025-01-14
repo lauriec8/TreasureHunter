@@ -13,6 +13,7 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private boolean easyTown;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -31,6 +32,7 @@ public class Town {
 
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
+        easyTown = (toughness == 0.2);
     }
 
     public Terrain getTerrain() {
@@ -66,7 +68,7 @@ public class Town {
         if (canLeaveTown) {
             String item = terrain.getNeededItem();
             printMessage = "You used your " + item + " to cross the " + terrain.getTerrainName() + ".";
-            if (checkItemBreak()) {
+            if (checkItemBreak(easyTown)) {
                 hunter.removeItemFromKit(item);
                 printMessage += "\nUnfortunately, you lost your " + item + ".";
             }
@@ -95,6 +97,8 @@ public class Town {
         double noTroubleChance;
         if (toughTown) {
             noTroubleChance = 0.66;
+        } else if (easyTown){
+            noTroubleChance = 0.2;
         } else {
             noTroubleChance = 0.33;
         }
@@ -146,8 +150,12 @@ public class Town {
      *
      * @return true if the item broke.
      */
-    private boolean checkItemBreak() {
-        double rand = Math.random();
-        return (rand < 0.5);
+    private boolean checkItemBreak(boolean easyTown) {
+        if (easyTown){
+            return false;
+        } else {
+            double rand = Math.random();
+            return (rand < 0.5);
+        }
     }
 }
