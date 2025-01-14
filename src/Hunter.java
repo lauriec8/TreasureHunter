@@ -8,6 +8,7 @@ public class Hunter {
     //instance variables
     private String hunterName;
     private String[] kit;
+    private String[] treasures;
     private int gold;
 
     /**
@@ -19,12 +20,17 @@ public class Hunter {
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
         kit = new String[6]; // only 5 possible items can be stored in kit <- upgraded to 6 to fit boots
+        treasures = new String[4];
         gold = startingGold;
     }
 
     //Accessors
     public String getHunterName() {
         return hunterName;
+    }
+
+    public int getHunterGold() {
+        return gold;
     }
 
     /**
@@ -34,9 +40,6 @@ public class Hunter {
      */
     public void changeGold(int modifier) {
         gold += modifier;
-        if (gold < 0) {
-            gold = 0;
-        }
     }
 
     public void testMode(){
@@ -51,7 +54,7 @@ public class Hunter {
      * @return true if the item is successfully bought.
      */
     public boolean buyItem(String item, int costOfItem) {
-        if (costOfItem == 0 || gold < costOfItem || hasItemInKit(item)) {
+        if (costOfItem == 0 || gold < costOfItem || hasItemInKit(item, kit)) {
             return false;
         }
         gold -= costOfItem;
@@ -68,7 +71,7 @@ public class Hunter {
      * @return true if the item was successfully sold.
      */
     public boolean sellItem(String item, int buyBackPrice) {
-        if (buyBackPrice <= 0 || !hasItemInKit(item)) {
+        if (buyBackPrice <= 0 || !hasItemInKit(item, kit)) {
             return false;
         }
         gold += buyBackPrice;
@@ -90,6 +93,15 @@ public class Hunter {
         }
     }
 
+    public boolean addTreasure(String treasure) {
+        if (!hasItemInKit(treasure, treasures)) {
+            int idx = emptyPositionInKit(treasures);
+            treasures[idx] = treasure;
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Checks to make sure that the item is not already in the kit.
      * If not, it assigns the item to an index in the kit with a null value ("empty" position).
@@ -98,7 +110,7 @@ public class Hunter {
      * @return true if the item is not in the kit and has been added.
      */
     private boolean addItem(String item) {
-        if (!hasItemInKit(item)) {
+        if (!hasItemInKit(item, kit)) {
             int idx = emptyPositionInKit();
             kit[idx] = item;
             return true;
@@ -112,6 +124,16 @@ public class Hunter {
      * @param item The search item
      * @return true if the item is found.
      */
+    public boolean hasItemInKit(String item, String[] array) {
+        for (String tmpItem : array) {
+            if (item.equals(tmpItem)) {
+                // early return
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean hasItemInKit(String item) {
         for (String tmpItem : kit) {
             if (item.equals(tmpItem)) {
@@ -190,6 +212,15 @@ public class Hunter {
     private int emptyPositionInKit() {
         for (int i = 0; i < kit.length; i++) {
             if (kit[i] == null) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int emptyPositionInKit(String[] array) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == null) {
                 return i;
             }
         }

@@ -13,6 +13,9 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private String[] treasures = {"crown", "trophy", "gem", "dust"};
+    private String townTreasure;
+    private boolean searched = false;
     private boolean easyTown;
 
     /**
@@ -56,6 +59,7 @@ public class Town {
         } else {
             printMessage += "\nWe're just a sleepy little town with mild mannered folk.";
         }
+        townTreasure = treasures[(int) (Math.random() * 4)];
     }
 
     /**
@@ -117,6 +121,22 @@ public class Town {
                 hunter.changeGold(-goldDiff);
             }
         }
+    }
+
+    public void lookForTreasure() {
+        if (searched) {
+            System.out.println("You have already searched this town!");
+        } else {
+            if (townTreasure.equals("dust")) {
+                System.out.println("You found dust!");
+            } else {
+                System.out.println("You found a " + townTreasure + "!");
+                if (!hunter.addTreasure(townTreasure)) {
+                    System.out.println("You have already collected this treasure!");
+                }
+            }
+        }
+        searched = true;
     }
 
     public String infoString() {

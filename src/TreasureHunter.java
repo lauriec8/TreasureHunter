@@ -59,6 +59,9 @@ public class TreasureHunter {
         }else if (hard.equals("test")) {
             hunter = new Hunter(name, 100);
             hunter.testMode();
+        } else if (hard.equals("test lose")) {
+            hardMode = true;
+            hunter = new Hunter(name, 1);
         }
     }
 
@@ -114,11 +117,12 @@ public class TreasureHunter {
             System.out.println("(E)xplore surrounding terrain.");
             System.out.println("(M)ove on to a different town.");
             System.out.println("(L)ook for trouble!");
+            System.out.println("(H)unt for treasure!");
             System.out.println("Give up the hunt and e(X)it.");
             System.out.println();
             System.out.print("What's your next move? ");
             choice = SCANNER.nextLine().toLowerCase();
-            processChoice(choice);
+            choice = processChoice(choice);
         }
     }
 
@@ -126,7 +130,7 @@ public class TreasureHunter {
      * Takes the choice received from the menu and calls the appropriate method to carry out the instructions.
      * @param choice The action to process.
      */
-    private void processChoice(String choice) {
+    private String processChoice(String choice) {
         if (choice.equals("b") || choice.equals("s")) {
             currentTown.enterShop(choice);
         } else if (choice.equals("e")) {
@@ -139,10 +143,22 @@ public class TreasureHunter {
             }
         } else if (choice.equals("l")) {
             currentTown.lookForTrouble();
+            if (hunter.getHunterGold() < 0) {
+                System.out.println();
+                System.out.println(currentTown.getLatestNews());
+                System.out.println();
+                System.out.println("You don't have enough gold to pay!");
+                System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
+                return "x";
+            }
+        } else if (choice.equals("h")) {
+            currentTown.lookForTreasure();
         } else if (choice.equals("x")) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
+            return "x";
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }
+        return "";
     }
 }
