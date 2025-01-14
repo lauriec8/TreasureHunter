@@ -18,7 +18,7 @@ public class Hunter {
      */
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
-        kit = new String[5]; // only 5 possible items can be stored in kit
+        kit = new String[6]; // only 5 possible items can be stored in kit <- upgraded to 6 to fit boots
         gold = startingGold;
     }
 
@@ -40,8 +40,8 @@ public class Hunter {
     }
 
     public void testMode(){
-        kit = new String[] {"water", "rope", "machete", "horse", "boat"};
-    }
+        kit = new String[] {"water", "rope", "machete", "horse", "boat", "boots"};
+    } //updated to fit TH-4
 
     /**
      * Buys an item from a shop.
