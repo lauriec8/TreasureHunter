@@ -17,6 +17,7 @@ public class TreasureHunter {
     private Hunter hunter;
     private boolean hardMode;
     private boolean easyMode;
+    private boolean samuraiMode;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -27,6 +28,7 @@ public class TreasureHunter {
         hunter = null;
         hardMode = false;
         easyMode = false;
+        samuraiMode = false;
     }
 
     /**
@@ -62,6 +64,8 @@ public class TreasureHunter {
         } else if (hard.equals("test lose")) {
             hardMode = true;
             hunter = new Hunter(name, 1);
+        } else if (hard.equals("s")){
+            samuraiMode = true;
         }
     }
 
@@ -85,18 +89,19 @@ public class TreasureHunter {
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
         // variable; we can leave it as a local variable
-        Shop shop = new Shop(markdown);
+        Shop shop = new Shop(markdown, samuraiMode);
 
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
         // object in other methods of this class
-        currentTown = new Town(shop, toughness);
+        currentTown = new Town(shop, toughness, samuraiMode);
 
         // calling the hunterArrives method, which takes the Hunter
         // as a parameter; note this also could have been done in the
         // constructor for Town, but this illustrates another way to associate
         // an object with an object of a different class
         currentTown.hunterArrives(hunter);
+
     }
 
     /**
