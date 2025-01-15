@@ -44,7 +44,15 @@ public class Hunter {
 
     public void testMode(){
         kit = new String[] {"water", "rope", "machete", "horse", "boat", "boots"};
+        treasures = new String[] {"gem", "crown", null};
     } //updated to fit TH-4
+
+    public boolean checkTreasures() {
+        if (hasItemInKit("crown", treasures) && hasItemInKit("trophy", treasures) && hasItemInKit("gem", treasures)) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Buys an item from a shop.

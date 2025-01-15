@@ -153,6 +153,10 @@ public class TreasureHunter {
             }
         } else if (choice.equals("h")) {
             currentTown.lookForTreasure();
+            if (hunter.checkTreasures()) {
+                System.out.println("Congratulations, you have found the last of the three treasures, you win!");
+                return "x";
+            }
         } else if (choice.equals("x")) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
             return "x";
