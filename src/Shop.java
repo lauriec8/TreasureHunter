@@ -66,11 +66,11 @@ public class Shop {
                 }
             } else {
                 int cost = checkMarketPrice(item, true);
-                if (hunter.hasItemInKit("sword")) {
+                if (cost < 0) {
+                    System.out.println("We ain't got none of those.");
+                } else if (hunter.hasItemInKit("sword")) {
                     System.out.println("The sword intimidates the shopkeeper and he gives the item for free");
                     buyItem(item);
-                } else if (cost == 0) {
-                    System.out.println("We ain't got none of those.");
                 } else {
                     System.out.print("It'll cost you " + cost + " gold. Buy it (y/n)? ");
                     String option = SCANNER.nextLine().toLowerCase();
@@ -181,8 +181,10 @@ public class Shop {
             return BOAT_COST;
         } else if (item.equals("shovel")) {
             return SHOVEL_COST;
+        } else if (item.equals("sword")){
+            return SWORD_COST;
         } else {
-            return 0;
+            return -1;
         }
     }
 

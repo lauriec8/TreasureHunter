@@ -43,7 +43,7 @@ public class Hunter {
     }
 
     public void testMode(){
-        kit = new String[] {"water", "rope", "machete", "horse", "boat", "boots"};
+        kit = new String[] {"water", "rope", "machete", "horse", "boat", "boots", "shovel"};
         treasures = new String[] {"gem", "crown", null};
     } //updated to fit TH-4
 
@@ -62,6 +62,12 @@ public class Hunter {
      * @return true if the item is successfully bought.
      */
     public boolean buyItem(String item, int costOfItem) {
+        if (costOfItem < 0) {
+            return false;
+        }
+        if (gold < costOfItem || hasItemInKit(item, kit)){
+            return false;
+        }
         if (item.equals("sword")) {
             addItem(item);
             return true;
@@ -69,9 +75,6 @@ public class Hunter {
         if (hasItemInKit("sword")){
             addItem(item);
             return true;
-        }
-        if (costOfItem == 0 || gold < costOfItem || hasItemInKit(item, kit)) {
-            return false;
         }
         gold -= costOfItem;
         addItem(item);
