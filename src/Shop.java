@@ -30,16 +30,15 @@ public class Shop {
      *
      * @param markdown Percentage of markdown for selling items in decimal format.
      */
-    public Shop(double markdown) {
-        this.markdown = markdown;
-        customer = null; // customer is set in the enter method
-    }
 
     public Shop(double markdown, boolean isSamuraiMode) {
         if (isSamuraiMode){
             this.markdown = markdown;
             customer = null; // customer is set in the enter method
             samuraiMode = true;
+        } else {
+            this.markdown = markdown;
+            customer = null; // customer is set in the enter method
         }
     }
 
