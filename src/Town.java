@@ -116,18 +116,18 @@ public class Town {
             if (hunter.hasItemInKit("sword")){
                 printMessage = "The brawler, seeing your sword, realizes he picked a losing fight and gives you his gold";
                 int goldDiff = (int) (Math.random() * 10) + 1;
-                printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
+                printMessage += "\nYou won the brawl and receive "+ goldDiff + " gold.";
                 hunter.changeGold(goldDiff);
             } else {
-                printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
+                printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
                 int goldDiff = (int) (Math.random() * 10) + 1;
                 if (Math.random() > noTroubleChance) {
                     printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
-                    printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RED + " gold." + Colors.RESET;
+                    printMessage += "\nYou won the brawl and receive " + goldDiff +" gold.";
                     hunter.changeGold(goldDiff);
                 } else {
                     printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
-                    printMessage += "\nYou lost the brawl and pay " + goldDiff + " gold." + Colors.RESET;
+                    printMessage += "\nYou lost the brawl and pay " + goldDiff + " gold.";
                     hunter.changeGold(-goldDiff);
                 }
             }
@@ -136,14 +136,14 @@ public class Town {
 
     public void lookForTreasure() {
         if (searched) {
-            System.out.println("You have already searched this town!");
+            TreasureHunter.window.addTextToWindow("You have already searched this town!" + "\n", Color.red);
         } else {
             if (townTreasure.equals("dust")) {
-                System.out.println("You found dust!");
+                TreasureHunter.window.addTextToWindow("You found dust!" + "\n", Colors.smokyBlue);
             } else {
-                System.out.println("You found a " + townTreasure + "!");
+                TreasureHunter.window.addTextToWindow("You found a " + townTreasure + "!" + "\n", Colors.smokyBlue);
                 if (!hunter.addTreasure(townTreasure)) {
-                    System.out.println("You have already collected this treasure!");
+                    TreasureHunter.window.addTextToWindow("You have already collected this treasure!" + "\n", Colors.smokyBlue);
                 }
             }
         }
@@ -155,20 +155,20 @@ public class Town {
             if (hunter.hasItemInKit("shovel")) {
                 dug = true;
                 if (Math.random() > 0.5) {
-                    System.out.println("You dug up " + Colors.YELLOW + (int) (Math.random() * 20 + 1) + Colors.RESET + " gold!");
+                    TreasureHunter.window.addTextToWindow("You dug up " + (int) (Math.random() * 20 + 1) + " gold!" + "\n", Colors.smokyBlue);
                 } else {
-                    System.out.println("You dug but only found dirt.");
+                    TreasureHunter.window.addTextToWindow("You dug but only found dirt." + "\n", Colors.brown);
                 }
             } else {
-                System.out.println("You can't dig for gold without a shovel!");
+                TreasureHunter.window.addTextToWindow("You can't dig for gold without a shovel!" + "\n", Color.red);
             }
         } else {
-            System.out.println("You already dug for gold in this town.");
+            TreasureHunter.window.addTextToWindow("You already dug for gold in this town." + "\n", Color.red);
         }
     }
 
     public String infoString() {
-        return "This nice little town is surrounded by " + Colors.CYAN + terrain.getTerrainName() + Colors.RESET + ".";
+        return "This nice little town is surrounded by " + terrain.getTerrainName() + ".";
     }
 
     /**

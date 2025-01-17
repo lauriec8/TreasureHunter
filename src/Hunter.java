@@ -178,7 +178,7 @@ public class Hunter {
                 printableKit += item + space;
             }
         }
-        return Colors.PURPLE + printableKit + Colors.RESET;
+        return printableKit;
     }
 
     public String getInventory() {
@@ -190,14 +190,14 @@ public class Hunter {
                 printableKit += item + space;
             }
         }
-        return Colors.PURPLE + printableKit + Colors.RESET;
+        return printableKit;
     }
 
     /**
      * @return A string representation of the hunter.
      */
     public String infoString() {
-        String str = hunterName + " has " + Colors.YELLOW + gold  + Colors.RESET + " gold";
+        String str = hunterName + " has " + gold  + " gold";
         if (!kitIsEmpty()) {
             str += " and " + getInventory();
         }
