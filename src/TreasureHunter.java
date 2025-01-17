@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.Scanner;
 
 /**
@@ -114,6 +113,7 @@ public class TreasureHunter {
         String choice = "";
         while (!choice.equals("x")) {
             window.addTextToWindow(currentTown.getLatestNews() + "\n", Colors.salmon);
+            currentTown.resetNews();
             window.addTextToWindow("***" + "\n", Color.darkGray);
             window.addTextToWindow(hunter.infoString() + "\n", Colors.pastelBlue);
             window.addTextToWindow(currentTown.infoString() + "\n", Colors.pastelGreen);

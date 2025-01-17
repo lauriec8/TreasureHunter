@@ -50,6 +50,10 @@ public class Town {
         return printMessage;
     }
 
+    public void resetNews(){
+        printMessage = "";
+    }
+
     /**
      * Assigns an object to the Hunter in town.
      *
@@ -113,23 +117,35 @@ public class Town {
         if (Math.random() > noTroubleChance) {
             printMessage = "You couldn't find any trouble";
         } else {
+            printMessage = "You go into the sketchy part of town at night looking for someone to pick a fight with";
+            printMessage += "\nFrom the shadows, you see a shiny toothy grin glimmering.. You found someone to fight";
+            boolean wonBrawl = false;
             if (hunter.hasItemInKit("sword")){
-                printMessage = "The brawler, seeing your sword, realizes he picked a losing fight and gives you his gold";
-                int goldDiff = (int) (Math.random() * 10) + 1;
-                printMessage += "\nYou won the brawl and receive "+ goldDiff + " gold.";
-                hunter.changeGold(goldDiff);
+                boolean scared = Math.random() > 0.5;
+                if (scared) {
+                    printMessage += "\nYou begin to unsheathe your sword, the dim street light reflecting to reveal the opponent's face";
+                    printMessage += "\nTheir face was ghastly pale with fear and immediately fled the scene, leaving all their gold";
+                } else {
+                    printMessage += "\nYou draw your sword and swung at them, but with no defenses against a sword, they surrendered";
+                }
+                wonBrawl = true;
             } else {
                 printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
-                int goldDiff = (int) (Math.random() * 10) + 1;
                 if (Math.random() > noTroubleChance) {
                     printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
-                    printMessage += "\nYou won the brawl and receive " + goldDiff +" gold.";
-                    hunter.changeGold(goldDiff);
+                    wonBrawl = true;
                 } else {
                     printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
-                    printMessage += "\nYou lost the brawl and pay " + goldDiff + " gold.";
-                    hunter.changeGold(-goldDiff);
                 }
+            }
+            printMessage += "\n";
+            int goldDiff = (int) (Math.random() * 10) + 1;
+            if (wonBrawl) {
+                printMessage += "\nYou won the brawl and receive " + goldDiff + " gold.";
+                hunter.changeGold(goldDiff);
+            } else {
+                printMessage += "\nYou lost the brawl and pay " + goldDiff + " gold.";
+                hunter.changeGold(-goldDiff);
             }
         }
     }
