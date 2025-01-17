@@ -113,6 +113,7 @@ public class TreasureHunter {
         while (!choice.equals("x")) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
+            currentTown.resetNews();
             System.out.println("***");
             System.out.println(hunter.infoString());
             System.out.println(currentTown.infoString());
